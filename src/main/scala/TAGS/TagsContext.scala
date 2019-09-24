@@ -1,7 +1,7 @@
 package TAGS
 
 import com.typesafe.config.ConfigFactory
-import UTIL.Tag
+import UTIL.{Tag, TagUtils}
 import org.apache.hadoop.hbase.{HColumnDescriptor, HTableDescriptor, TableName}
 import org.apache.hadoop.hbase.client.{ConnectionFactory, Put}
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable
@@ -77,11 +77,11 @@ object TagsContext {
       val userId:String = TagUtils.getOneUserId(row)
       // 接下来标签 实现---(定义个接口,每个标签实现都要继承次接口,实现其中的方法)
       //1.广告标签
-      val adList = TagsAd.makeTags(row)
+      val adList = TagAd.makeTags(row)
       // 2.商圈标签
       val businessList = BusinessTag.makeTags(row)
       // 3.媒体标签
-      val appList = TagsAPP.makeTags(row,broadValue)
+      val appList = TagApp.makeTags(row,broadValue)
       // 4.设备标签
       val devList = TagsDevice.makeTags(row)
       // 5.地域标签
